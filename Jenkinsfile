@@ -4,7 +4,7 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials ('dockerhub')
     RepoDockerHub = 'rhxpchispi'
     NameContainer = 'myapp'
-    VERSION = ${env.BRANCH_NAME}
+    VERSION = "${env.BRANCH_NAME}"
   }
   stages {
     stage('Build'){
