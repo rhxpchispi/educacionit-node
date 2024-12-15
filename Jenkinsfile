@@ -1,12 +1,10 @@
 pipeline {
   agent any
-  parameters {
-        string name: 'VERSION', defaultValue: '6.0'
-    }
   environment{
     DOCKERHUB_CREDENTIALS = credentials ('dockerhub')
     RepoDockerHub = 'rhxpchispi'
     NameContainer = 'myapp'
+    VERSION = "${env.BRANCH_NAME}"
   }
   stages {
     stage('Build'){
