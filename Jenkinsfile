@@ -1,7 +1,7 @@
 pipeline {
   agent any
   parameters {
-        string name: 'VERSION', defaultValue: '8.0'
+        string name: 'VERSION', defaultValue: '6.0'
     }
   environment{
     DOCKERHUB_CREDENTIALS = credentials ('dockerhub')
