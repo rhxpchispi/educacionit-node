@@ -1,8 +1,8 @@
 pipeline {
   agent any
   parameters {
-        string name: 'VERSION', defaultValue: '6.0'
-    }
+      string name: 'VERSION', defaultValue: '8.0'
+  }
   environment{
     DOCKERHUB_CREDENTIALS = credentials ('dockerhub')
     RepoDockerHub = 'rhxpchispi'
@@ -11,11 +11,13 @@ pipeline {
   stages {
     stage('Build'){
       steps{
+        echo "COMIENZA EL PASO DE BUILD"
         sh "docker build -t ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ."
       }
     }
     stage('Login to Dockerhub'){
       steps{
+        echo "COMIENZA EL PASO DE LOG IN A DOCKER"
         sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
       }
     }
@@ -26,7 +28,7 @@ pipeline {
     }
     stage('Deploy container'){
       steps{
-        sh "if [ 'docker stop ${env.NameContainer}' ] ; then docker rm -f ${env.NameContainer} && docker run -d --name ${env.NameContainer} -p 5000:5000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; else docker run -d --name ${env.NameContainer} -p 5000:5000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; fi"
+        sh "if [ 'docker stop ${env.NameContainer}' ] ; then docker rm -f ${env.NameContainer} && docker run -d --name ${env.NameContainer} -p 3000:3000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; else docker run -d --name ${env.NameContainer} -p 3000:3000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; fi"
       }
     }
   }
