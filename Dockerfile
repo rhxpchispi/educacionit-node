@@ -5,5 +5,6 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
+RUN apt update && apt upgrade
 
 CMD ["node", "server.js"]
