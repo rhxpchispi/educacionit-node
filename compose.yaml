@@ -6,7 +6,7 @@ services:
     container_name: myapp
     image: rhxpchispi/myapp:6.0
     ports:
-      - 3030:3000
+      - 80:80
     networks:
       - myapp-network
 networks:

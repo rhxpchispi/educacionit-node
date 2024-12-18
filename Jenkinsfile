@@ -4,12 +4,12 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials ('dockerhub')
     RepoDockerHub = 'rhxpchispi'
     NameContainer = 'myapp'
-    VERSION = "${env.BRANCH_NAME}"
+    VERSION = "dev"
   }
   stages {
     stage('Build'){
       steps{
-        echo "COMIENZA EL PASO DE BUILD"
+        echo "COMIENZA EL PASO DE BUILDEO"
         sh "docker build -t ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ."
       }
     }
@@ -22,11 +22,6 @@ pipeline {
     stage('Push image to Dockerhub'){
       steps{
         sh "docker push ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} "
-      }
-    }
-    stage('Deploy container'){
-      steps{
-        sh "if [ 'docker stop ${env.NameContainer}' ] ; then docker rm -f ${env.NameContainer} && docker run -d --name ${env.NameContainer} -p 3000:3000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; else docker run -d --name ${env.NameContainer} -p 3000:3000 ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ; fi"
       }
     }
   }
