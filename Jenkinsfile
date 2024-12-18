@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build'){
       steps{
-        echo "COMIENZA EL PASO DE BUILD"
+        echo "COMIENZA EL PASO DE BUILDEO"
         sh "docker build -t ${env.RepoDockerHub}/${env.NameContainer}:${env.VERSION} ."
       }
     }
